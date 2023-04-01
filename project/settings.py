@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'rest_framework_swagger',
+    'rest_framework.authtoken',
     'core',
 ]
 
@@ -94,6 +95,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DJANGO_SETTINGS_MODULE = []
 
 DATE_INPUT_FORMATS = ['%d.%m.%Y', '%Y.%m.%d']
 DATE_FORMAT = 'd.m.Y'

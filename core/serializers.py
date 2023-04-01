@@ -25,6 +25,16 @@ class Booking(serializers.ModelSerializer):
         exclude = ['user', 'id']
 
 
+class RegisterUser(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(min_length=8)
+
+    def validate_username(self, value):
+        if models.User.objects.filters(username=value).exists():
+            raise serializers.ValidationError('Такое имя уже занято')
+
+
+
 # class Booking(serializers.Serializer):
 #     display = serializers.SerializerMethodField()
 #

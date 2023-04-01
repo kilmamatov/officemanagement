@@ -1,12 +1,26 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.utils.timezone import now
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework.generics import GenericAPIView
 from core import models, serializers, filters
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions, IsAdminUser
 from rest_framework.decorators import action
+
+
+# class RegisterUser(GenericAPIView):
+#     queryset = models.User
+#     serializer_class = serializers.RegisterUser
+#
+#     def post(self, request):
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         models.User.objects.create_user(
+#             username=
+#         )
 
 
 class RoomViewSet(ReadOnlyModelViewSet):
@@ -24,6 +38,8 @@ class BookingViewSet(ReadOnlyModelViewSet):
 
 
 class RoomCrudViewSet(ModelViewSet):
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (IsAdminUser,)
     queryset = models.Room.objects.all()
     serializer_class = serializers.Room
     filter_backends = [DjangoFilterBackend]
