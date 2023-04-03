@@ -10,10 +10,3 @@ class Room(admin.ModelAdmin):
 @admin.register(models.Booking)
 class Booking(admin.ModelAdmin):
     list_display = ('room', 'start_time', 'end_time')
-
-
-@admin.register(models.UserProfile)
-class UserProfile(admin.ModelAdmin):
-    list_display = ('phone', 'nickname')
-
-

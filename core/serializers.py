@@ -2,13 +2,6 @@ from rest_framework import serializers
 from core import models
 
 
-class UserProfile(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.UserProfile
-        fields = ['nickname', 'phone']
-
-
 class Room(serializers.ModelSerializer):
 
     class Meta:
@@ -18,11 +11,19 @@ class Room(serializers.ModelSerializer):
 
 class Booking(serializers.ModelSerializer):
     room = Room()
-    userprofile = UserProfile()
+
+    class Meta:
+        model = models.Booking
+        exclude = ['id']
+        # fields = '__all__'
+
+
+class BookingCRUD(serializers.ModelSerializer):
 
     class Meta:
         model = models.Booking
         exclude = ['user', 'id']
+        # fields = '__all__'
 
 
 class RegisterUser(serializers.Serializer):
@@ -30,8 +31,9 @@ class RegisterUser(serializers.Serializer):
     password = serializers.CharField(min_length=8)
 
     def validate_username(self, value):
-        if models.User.objects.filters(username=value).exists():
+        if models.User.objects.filter(username=value).exists():
             raise serializers.ValidationError('Такое имя уже занято')
+        return value
 
 
 

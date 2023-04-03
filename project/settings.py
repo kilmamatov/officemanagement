@@ -118,7 +118,7 @@ REST_FRAMEWORK = {
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UCT'
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True
 
