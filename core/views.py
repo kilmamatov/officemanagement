@@ -27,6 +27,18 @@ class RegisterUser(GenericAPIView):
         return Response({'token': token.key})
 
 
+class LoginUser(GenericAPIView):
+    queryset = models.User
+    serializer_class = serializers.LoginUser
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        token = Token.objects.get(user__username=serializer.validated_data['username'])
+        return Response({'token': token.key})
+        pass
+
+
 class RoomViewSet(ReadOnlyModelViewSet):
     queryset = models.Room.objects.all()
     serializer_class = serializers.Room

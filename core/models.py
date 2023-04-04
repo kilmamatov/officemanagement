@@ -1,9 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-import datetime
 from django.utils.timezone import now
-from django.db.models.deletion import Collector
-
 
 User = get_user_model()
 
@@ -31,5 +28,7 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.room.name} - {self.start_time}"
+
+
 
 
